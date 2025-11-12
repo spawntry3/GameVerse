@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVerse - Магазин игровых консолей</title>
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+
+        .console-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .console-card:hover .console-card-image {
+            transform: scale(1.05);
+        }
+
+        .console-detail-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="bgMusic" loop autoplay>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <div class="music-control paused" id="musicControl">
+        <div class="music-icon">🎵</div>
+        <div class="music-text">Retro Gaming</div>
+    </div>
+
+
+
+    <div class="bg-animation active" id="bgRetro">
+        <div class="pixel-rain">
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+            <div class="pixel-block"></div>
+        </div>
+    </div>
+    
+    <div class="bg-animation" id="bgClassic">
+        <div class="spinning-discs">
+            <div class="disc"></div>
+            <div class="disc"></div>
+            <div class="disc"></div>
+            <div class="disc"></div>
+        </div>
+    </div>
+    
+    <div class="bg-animation" id="bgModern">
+        <div class="wave-particles">
+            <div class="wave">
+                <div class="wave-circle"></div>
+                <div class="wave-circle"></div>
+                <div class="wave-circle"></div>
+            </div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+    
+    <div class="bg-animation" id="bgCyber">
+        <div class="cyber-rain">
+            <div class="cyber-grid-bg"></div>
+            <div class="matrix-line"></div>
+            <div class="matrix-line"></div>
+            <div class="matrix-line"></div>
+            <div class="matrix-line"></div>
+            <div class="matrix-line"></div>
+            <div class="matrix-line"></div>
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('home')">GameVerse</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a onclick="showPage('home')">Главная</a></li>
+                <li><a onclick="showPage('catalog')">Каталог</a></li>
+                <li><a onclick="showPage('cart')">Корзина <span id="cartBadge"></span></a></li>
+            </ul>
+            <div class="controls">
+                <button class="control-btn" id="moodBtn">Стиль</button>
+                <button class="control-btn" id="eraBtn">Эра</button>
+                <button class="control-btn user-btn" id="loginBtn">Вход</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="home" class="page active">
+        <div class="container">
+
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Эволюция игр</h1>
+                    <div class="subtitle">Магазин консолей всех поколений</div>
+                    <p>Откройте для себя легендарные игровые консоли. От ретро-классики до современных систем - у нас есть всё!</p>
+                    <button class="cta-button" onclick="showPage('catalog')">В каталог</button>
+                </div>
+                <div class="hero-console">
+                    <div class="console-display">
+                        <div class="console-icon" id="heroIcon">🕹️</div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; font-family: var(--font-heading);" id="heroName">Ретро Эра</div>
+                        <div style="font-size: 1.2rem; color: var(--text-secondary); font-family: var(--font-main);" id="heroGen">8-16 бит</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Консолей</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Эпохи</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">40+</div>
+                        <div class="stat-label">Лет истории</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Качество</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="features-section">
+                <h2 class="section-title">Наши преимущества</h2>
+                <p class="section-subtitle">Почему выбирают именно нас</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">✨</span>
+                        <h3>Аутентичность</h3>
+                        <p>Все консоли проходят тщательную проверку подлинности и работоспособности</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🚚</span>
+                        <h3>Быстрая доставка</h3>
+                        <p>Доставляем по всему Казахстану за 3-5 дней с гарантией сохранности</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🛡️</span>
+                        <h3>Гарантия качества</h3>
+                        <p>12 месяцев гарантии на все консоли и комплектующие</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">💰</span>
+                        <h3>Честные цены</h3>
+                        <p>Лучшие цены на рынке без скрытых платежей и переплат</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="timeline-section">
+                <h2 class="section-title">История консолей</h2>
+                <p class="section-subtitle">От пикселей до фотореализма</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1983</div>
+                        <div class="timeline-content">
+                            <h3>Ретро эра</h3>
+                            <p>Начало революции: Nintendo NES возрождает индустрию видеоигр после краха. 8-битная графика становится культовой.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1994</div>
+                        <div class="timeline-content">
+                            <h3>Классическая эра</h3>
+                            <p>PlayStation 1 меняет правила игры. Переход на CD-диски и 3D-графику открывает новые горизонты.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2005</div>
+                        <div class="timeline-content">
+                            <h3>Современная эра</h3>
+                            <p>Xbox 360 и PS3 приносят HD-графику и мощные онлайн-сервисы. Игры становятся искусством.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-content">
+                            <h3>Киберпанк эра</h3>
+                            <p>PS5 и Xbox Series X: трассировка лучей, 4K 120fps и SSD революционизируют игровой опыт.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="why-us-section">
+                <h2 class="section-title">Почему GameVerse?</h2>
+                <p class="section-subtitle">Мы больше, чем просто магазин</p>
+                <div class="why-us-grid">
+                    <div class="why-us-card">
+                        <div class="why-us-icon">🎯</div>
+                        <div class="why-us-content">
+                            <h3>Экспертиза</h3>
+                            <p>Наша команда - это настоящие энтузиасты игр с 20+ летним опытом. Мы знаем каждую консоль изнутри и поможем выбрать идеальный вариант именно для вас.</p>
+                        </div>
+                    </div>
+                    <div class="why-us-card">
+                        <div class="why-us-icon">🌟</div>
+                        <div class="why-us-content">
+                            <h3>Уникальный опыт</h3>
+                            <p>Интерактивный дизайн сайта адаптируется под разные эпохи игр. Выберите стиль и эру, которая вам по душе!</p>
+                        </div>
+                    </div>
+                    <div class="why-us-card">
+                        <div class="why-us-icon">🔧</div>
+                        <div class="why-us-content">
+                            <h3>Поддержка 24/7</h3>
+                            <p>Возникли вопросы? Наша служба поддержки всегда на связи и готова помочь с настройкой, ремонтом или консультацией.</p>
+                        </div>
+                    </div>
+                    <div class="why-us-card">
+                        <div class="why-us-icon">🎁</div>
+                        <div class="why-us-content">
+                            <h3>Бонусы и акции</h3>
+                            <p>Регулярные распродажи, программа лояльности и специальные предложения для постоянных клиентов. Экономьте до 30%!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="catalog" class="page">
+        <div class="container">
+            <h2 class="section-title">Каталог Консолей</h2>
+            <p class="section-subtitle">Выберите консоль своей мечты</p>
+            <div class="consoles-grid" id="consolesGrid"></div>
+        </div>
+    </div>
+
+    <div id="console-page" class="page">
+        <div class="container">
+            <button class="control-btn" onclick="showPage('catalog')" style="margin-bottom: 2rem;">← Назад к каталогу</button>
+            <div class="console-detail">
+                <div class="console-image">
+                    <img id="detailImage" src="" alt="Console Image" class="console-detail-img">
+                </div>
+                <div class="console-info">
+                    <h1 id="detailName">Nintendo NES</h1>
+                    <p id="detailDesc" style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; font-family: var(--font-main);"></p>
+                    
+                    <div class="console-specs">
+                        <h3 style="margin-bottom: 1rem; text-transform: var(--text-transform); font-family: var(--font-heading);">Характеристики</h3>
+                        <div class="spec-item">
+                            <span style="font-weight: 600;">Год выпуска:</span>
+                            <span id="detailYear">1983</span>
+                        </div>
+                        <div class="spec-item">
+                            <span style="font-weight: 600;">Поколение:</span>
+                            <span id="detailGen">3-е поколение</span>
+                        </div>
+                        <div class="spec-item">
+                            <span style="font-weight: 600;">Производитель:</span>
+                            <span id="detailMaker">Nintendo</span>
+                        </div>
+                    </div>
+
+                    <div class="buy-section">
+                        <div class="price-tag" id="detailPrice">45,000₸</div>
+                        <button class="cta-button" style="width: 100%;" id="addToCartBtn">Добавить в корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart" class="page">
+        <div class="container">
+            <h2 class="section-title">Корзина</h2>
+            <div id="cartItems" style="margin-top: 3rem;"></div>
+            <div id="cartTotal" style="text-align: right; margin-top: 2rem;"></div>
+            <button class="cta-button" id="checkoutBtn" style="float: right; margin-top: 2rem;">Оформить заказ</button>
+        </div>
+    </div>
+
+    <div class="modal" id="moodModal">
+        <div class="modal-content">
+            <h2>Выберите стиль</h2>
+            <div class="mood-options">
+                <div class="mood-option mood-retro" data-mood="retro">
+                    <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🕹️</div>
+                    <div>Ретро</div>
+                </div>
+                <div class="mood-option mood-modern" data-mood="modern">
+                    <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🎮</div>
+                    <div>Модерн</div>
+                </div>
+                <div class="mood-option mood-cyber" data-mood="cyber">
+                    <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🌐</div>
+                    <div>Киберпанк</div>
+                </div>
+            </div>
+            <button class="control-btn" style="width: 100%;" onclick="closeModal('moodModal')">Закрыть</button>
+        </div>
+    </div>
+
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h2>Вход</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" required>
+                </div>
+                <button class="cta-button" type="submit" style="width: 100%; margin-bottom: 1rem;">Войти</button>
+                <button class="control-btn" type="button" onclick="showRegisterModal()" style="width: 100%;">Регистрация</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" required>
+                </div>
+                <button class="cta-button" type="submit" style="width: 100%; margin-bottom: 1rem;">Зарегистрироваться</button>
+                <button class="control-btn" type="button" onclick="showLoginModal()" style="width: 100%;">Уже есть аккаунт</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <h2>Оплата</h2>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label>Номер карты</label>
+                    <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                </div>
+                <div class="form-group">
+                    <label>Имя на карте</label>
+                    <input type="text" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Срок действия</label>
+                        <input type="text" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="text" placeholder="123" maxlength="3" required>
+                    </div>
+                </div>
+                <div id="paymentTotal" style="font-size: 2rem; font-weight: 900; color: var(--accent); margin: 2rem 0; text-align: center; font-family: var(--font-heading);"></div>
+                <button class="cta-button" type="submit" style="width: 100%; margin-bottom: 1rem;">Оплатить</button>
+                <button class="control-btn" type="button" onclick="closeModal('paymentModal')" style="width: 100%;">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="era-indicator" id="eraIndicator">🕹️ Ретро</div>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+
+                <div class="footer-section">
+                    <div class="footer-logo">GameVerse</div>
+                    <p class="footer-description">
+                        Ваш надежный магазин игровых консолей всех поколений. 
+                        От ретро-классики до современных систем.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link" title="YouTube">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Discord">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Навигация</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="showPage('home')">Главная</a></li>
+                        <li><a onclick="showPage('catalog')">Каталог</a></li>
+                        <li><a onclick="showPage('cart')">Корзина</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Информация</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="alert('Страница в разработке')">О нас</a></li>
+                        <li><a href="#" onclick="alert('Страница в разработке')">Доставка</a></li>
+                        <li><a href="#" onclick="alert('Страница в разработке')">Гарантия</a></li>
+                        <li><a href="#" onclick="alert('Страница в разработке')">Контакты</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <ul class="footer-contacts">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            +7 (777) 123-45-67
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            gameverse@gmail.com
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            Алматы, Казахстан
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 GameVerse. Все права защищены.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" onclick="alert('Страница в разработке')">Политика конфиденциальности</a>
+                    <span>•</span>
+                    <a href="#" onclick="alert('Страница в разработке')">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
